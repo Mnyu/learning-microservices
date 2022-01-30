@@ -8,6 +8,7 @@
         <module>photo-app-discovery</module>
         <module>photo-app-user-service</module>
         <module>photo-app-account-management-service</module>
+        <module>photo-app-api-gateway</module>
     </modules>
 
     <groupId>com.abhimanyutech</groupId>
