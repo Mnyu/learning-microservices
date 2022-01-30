@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>photo-app-discovery</module>
+        <module>photo-app-user-service</module>
     </modules>
 
     <groupId>com.abhimanyutech</groupId>
