@@ -17,9 +17,14 @@ spring:
 #          enabled: true
 #          lowerCaseServiceId: true
 
-# manually configuring api gateway routes
   cloud:
     gateway:
+      # automatic configuring api gateway routes
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      # manually configuring api gateway routes
       routes:
 #        - id: users-status-check
 #          uri: lb://user-ws
@@ -35,8 +40,8 @@ spring:
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
-#            - RewritePath=/users123/users/status/check, /users/status/check
-            - RewritePath=/users123/(?<segment>.*), /$\{segment} # can also be done using regular expressions
+            - RewritePath=/users123/users/status/check, /users/status/check
+#            - RewritePath=/users123/(?<segment>.*), /$\{segment} # can also be done using regular expressions
 
 eureka:
   client:

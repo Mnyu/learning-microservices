@@ -9,6 +9,21 @@ spring:
   devtools:
     restart:
       enabled: true
+  # h2 in-memory database
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+        # h2 db firewall built-in and because we are going to connect to users microservice through the Spring Cloud API Gateway,
+        # we need to enable connections from other addresses.
 
 eureka:
   instance:
