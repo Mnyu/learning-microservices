@@ -21,14 +21,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         userDTO.setUserId(UUID.randomUUID().toString());
+        userDTO.setEncryptedPassword("TEST");
         UserEntity userEntity = UserEntity.builder()
                 .email(userDTO.getEmail())
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .userId(userDTO.getUserId())
+                .encryptedPassword(userDTO.getEncryptedPassword())
                 .build();
-        userEntity.setEncryptedPassword("TEST");
         userRepository.save(userEntity);
-        return null;
+        return userDTO;
     }
 }

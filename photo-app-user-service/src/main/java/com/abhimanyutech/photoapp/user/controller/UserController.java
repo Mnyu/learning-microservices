@@ -1,10 +1,13 @@
 package com.abhimanyutech.photoapp.user.controller;
 
 import com.abhimanyutech.photoapp.user.model.UserDTO;
+import com.abhimanyutech.photoapp.user.model.UserResponseTO;
 import com.abhimanyutech.photoapp.user.model.UserTO;
 import com.abhimanyutech.photoapp.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,12 +36,20 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@Valid @RequestBody UserTO userTO) {
-        userService.createUser(UserDTO.builder()
-                        .email(userTO.getEmail())
-                        .firstName(userTO.getFirstName())
-                        .lastName(userTO.getLastName())
-                        .password(userTO.getPassword())
+    public ResponseEntity<UserResponseTO> createUser(@Valid @RequestBody UserTO userTO) {
+        UserDTO userDTO = userService.createUser(UserDTO.builder()
+                .email(userTO.getEmail())
+                .firstName(userTO.getFirstName())
+                .lastName(userTO.getLastName())
+                .password(userTO.getPassword())
+                .build());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(UserResponseTO.builder()
+                        .firstName(userDTO.getFirstName())
+                        .lastName(userDTO.getLastName())
+                        .email(userDTO.getEmail())
+                        .userId(userDTO.getUserId())
                         .build());
     }
 }
